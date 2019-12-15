@@ -5,7 +5,7 @@ var config = {
     physics: {
         default: 'arcade',
         arcade: {
-            gravity: { y: 450 },
+            gravity: { y: 0 },
             debug: false
         }
     },
@@ -35,18 +35,16 @@ function preload(){
 
 function create(){
 
-    // alvo = this.add.image(400, 100, 'alvo');
-    // bolinha = this.add.image(400, 500, 'bolinha')
+    // colisão entre imagens
+    alvo = this.physics.add.image(400, 100, 'alvo');
+    bolinha = this.physics.add.image(400, 500, 'bolinha');
+    player = this.add.image(400, 500, 'player');
 
-    alvo = this.physics.add.staticGroup();
-    bolinha = this.physics.add.staticGroup();
+    alvo.setCollideWorldBounds(true);
+    bolinha.setCollideWorldBounds(true);
 
-    alvo.create(400,  100, 'alvo');
-    bolinha.create(400, 500, 'bolinha');
-
-    player = this.add.image(400,  500, 'player');
-
-    this.physics.add.overlap(bolinha, alvo, acertouAlvo, null, this);
+    // overlap
+    this.physics.add.overlap(alvo, bolinha, acertouAlvo, null, this);
 
     cursors = this.input.keyboard.createCursorKeys();
 }
@@ -65,27 +63,20 @@ function update(){
 
     if(bolinha.y <= 0){
 
-        bolinha.y = 500;
+        bolinha.y = 490;
         atirar = false;
     }
 
-    if(alvo.x >= 790){
+    if(alvo.x >= 770){
 
         esquerda = true;
         velocidade = gerarVelocidade();
 
-    }else if(alvo.x <= 10){
+    }else if(alvo.x <= 30){
 
         esquerda = false;
         velocidade = gerarVelocidade();
     }
-
-    /*
-    if(alvo.x == bolinha.x && alvo.y == bolinha.y){
-
-        acertouAlvo();
-    }
-    */
 
     if(esquerda == true){
 
@@ -97,7 +88,7 @@ function update(){
 
 function acertouAlvo(){
 
-    console.log('teste');
+    console.log('acertou!');
 }
 
 function gerarVelocidade(){
