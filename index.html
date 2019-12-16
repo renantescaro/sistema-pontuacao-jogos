@@ -4,11 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <title>Teste</title>
 </head>
 <body>
 
+    <div id="dvPontos" style="display: none; background-color: blue; padding: 5%;">
+        <div style="text-align: center; ">
+            <h1 id="tituloPontuacao">Sua pontuação é de </h1>
+        </div>
+        <div class="row" style="margin-top: 20px;">
+            <div class="col-md-6">
+                <label>Seu nome:</label>
+                <input class="form-control">
+            </div>
+            <button style="margin-top: 27px;" class="btn btn-primary">Salvar</button>
+        </div>
+        <div style="margin-top: 20px;">
+            <table class="table table-bordered" style="padding: 10%;">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Pontuação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>merda</td>
+                        <td>666</td>
+                    </tr>
+                    <tr>
+                        <td>PiNtO</td>
+                        <td>10</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
     <script src="phaser.min.js"></script>
     <script src="script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script>
+        document.getElementById('dvPontos').style.height = window.innerHeight + 'PX';
+    </script>
 </body>
 </html>

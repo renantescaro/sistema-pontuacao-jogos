@@ -1,7 +1,7 @@
 var config = {
     type: Phaser.AUTO,
-    width: 800,
-    height: 600,
+    width: window.innerWidth-10,
+    height: window.innerHeight-20,
     physics: {
         default: 'arcade',
         arcade: {
@@ -19,12 +19,16 @@ var config = {
 var game = new Phaser.Game(config);
 
 var atirar = false;
+var esquerda = false;
+var score = 0;
 var velocidade = 10;
 var alvo;
 var bolinha;
-var player;
 var cursors;
-var esquerda = false;
+var player;
+var scoreText;
+var tempo = 30;
+var tempoText;
 
 function preload(){
 
@@ -36,9 +40,9 @@ function preload(){
 function create(){
 
     // colisão entre imagens
-    alvo = this.physics.add.image(400, 100, 'alvo');
-    bolinha = this.physics.add.image(400, 500, 'bolinha');
-    player = this.add.image(400, 500, 'player');
+    alvo = this.physics.add.image((window.innerWidth2), 100, 'alvo');
+    bolinha = this.physics.add.image((window.innerWidth/2), 500, 'bolinha');
+    player = this.add.image((window.innerWidth/2), 500, 'player');
 
     alvo.setCollideWorldBounds(true);
     bolinha.setCollideWorldBounds(true);
@@ -47,6 +51,26 @@ function create(){
     this.physics.add.overlap(alvo, bolinha, acertouAlvo, null, this);
 
     cursors = this.input.keyboard.createCursorKeys();
+
+    scoreText = this.add.text(10, 10, 'Pontos: ' + score, { fontSize: '32px', fill: '#999' });
+    tempoText = this.add.text(window.innerWidth-220, 10, 'Tempo: ' + tempo, { fontSize: '32px', fill: '#999' });
+
+    setInterval(function(){ 
+        
+        tempo--;
+
+        tempoText.setText('Tempo: ' + tempo);
+
+        if(tempo == 0){
+
+            document.getElementById('tituloPontuacao').textContent += score + ' pontos!';
+
+            document.getElementsByTagName('canvas')[0].style.display = 'none';
+
+            document.getElementById('dvPontos').style.display = '';
+        }
+
+    }, 1000);
 }
 
 function update(){
@@ -67,7 +91,7 @@ function update(){
         atirar = false;
     }
 
-    if(alvo.x >= 770){
+    if(alvo.x >= (window.innerWidth - 40)){
 
         esquerda = true;
         velocidade = gerarVelocidade();
@@ -88,7 +112,9 @@ function update(){
 
 function acertouAlvo(){
 
-    console.log('acertou!');
+    score++;
+
+    scoreText.setText('Pontos: ' + score);
 }
 
 function gerarVelocidade(){
